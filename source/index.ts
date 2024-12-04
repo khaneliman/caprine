@@ -14,7 +14,6 @@ import {
 	nativeTheme,
 } from 'electron';
 import {ipcMain as ipc} from 'electron-better-ipc';
-import {autoUpdater} from 'electron-updater';
 import electronDl from 'electron-dl';
 import electronContextMenu from 'electron-context-menu';
 import electronLocalshortcut from 'electron-localshortcut';
@@ -63,17 +62,6 @@ app.setAppUserModelId('com.sindresorhus.caprine');
 
 if (!config.get('hardwareAcceleration')) {
 	app.disableHardwareAcceleration();
-}
-
-if (!is.development && config.get('autoUpdate')) {
-	(async () => {
-		const FOUR_HOURS = 1000 * 60 * 60 * 4;
-		setInterval(async () => {
-			await autoUpdater.checkForUpdatesAndNotify();
-		}, FOUR_HOURS);
-
-		await autoUpdater.checkForUpdatesAndNotify();
-	})();
 }
 
 let mainWindow: BrowserWindow;
